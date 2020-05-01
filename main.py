@@ -12,12 +12,12 @@ def read_vpn_status_log():
 
 
 def get_vpn_status(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=read_vpn_status_log())
+    context.bot.send_message(chat_id=update.effective_chat.id, text=get_vpn_status())
 
 
 updater = Updater('1159891259:AAFNZ3isJAWyH8C2dUyfgGfah5yET04fi84', use_context=True)
 
-updater.dispatcher.add_handler(CommandHandler('vpn status', get_vpn_status()))
+updater.dispatcher.add_handler(CommandHandler('vpn_status', get_vpn_status))
 
 updater.start_polling()
 updater.idle()
