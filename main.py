@@ -12,7 +12,7 @@ def read_vpn_status_log():
 
 
 def get_vpn_status(update, context):
-    update.message.reply_text(read_vpn_status_log())
+    context.bot.send_message(chat_id=update.effective_chat.id, text=read_vpn_status_log())
 
 
 updater = Updater('1159891259:AAFNZ3isJAWyH8C2dUyfgGfah5yET04fi84', use_context=True)
