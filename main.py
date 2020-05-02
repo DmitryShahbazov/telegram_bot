@@ -23,6 +23,12 @@ async def rediska_check():
         rediska.redis_add_new_tg_update()
         await asyncio.sleep(0.1)
 
+
+async def printing():
+    print('salam')
+    await rediska_check()
+
+
 loop = asyncio.get_event_loop()
-loop.run_until_complete(rediska_check())
+loop.run_until_complete(printing())
 
