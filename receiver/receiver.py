@@ -1,10 +1,9 @@
-from typing import NamedTuple
 from telegram_api.telegram_api import TelegramApi
 from config import MainConfig
 from comands import vpn_commands
+from enum import Enum
 
-
-class ReceiverCommands(NamedTuple):
+class ReceiverCommands(Enum):
     vpn_status_log = '/vpn_status_log'
     help_command = '/help'
 
@@ -16,7 +15,7 @@ class Receiver:
     def if_command_check(self, chat_id, message):
         if not message[0] == '/':
             self.api.send_message(chat_id, 'Command should start with /')
-        if message not in ReceiverCommands:
+        if message not in ReceiverCommands.value:
             self.api.send_message(chat_id, 'Command not found. Check /help')
         else:
             self.what_command_check(message, chat_id)
