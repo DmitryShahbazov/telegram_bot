@@ -34,5 +34,4 @@ async def printing():
 loop = asyncio.get_event_loop()
 asyncio.ensure_future(rediska_check())
 asyncio.ensure_future(printing())
-loop.run_until_complete()
-
+loop.run_forever()
