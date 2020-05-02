@@ -1,6 +1,11 @@
 import logging
-from telegram.ext import Updater, CommandHandler
-
+import redis
+import requests
+import signal
+import sys
+import asyncio
+from redis_client.redis_client import RedisClient
+from config import MainConfig
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
@@ -11,13 +16,13 @@ def read_vpn_status_log():
     return log_text
 
 
-def get_vpn_status(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=get_vpn_status())
+async def rediska_check():
+    rediska = RedisClient(MainConfig.REDIS_HOST, MainConfig.REDIS_PORT)
+    rediska.redis_connect()
+    await rediska.redis_add_new_tg_update()
+
+loop = asyncio.get_event_loop()
+asyncio.ensure_future(rediska_check())
+loop.run_forever()
 
 
-updater = Updater('1159891259:AAFNZ3isJAWyH8C2dUyfgGfah5yET04fi84', use_context=True)
-
-updater.dispatcher.add_handler(CommandHandler('vpn_status', get_vpn_status))
-
-updater.start_polling()
-updater.idle()
