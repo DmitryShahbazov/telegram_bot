@@ -20,13 +20,7 @@ async def redis_add_update_loop():
     rediska = RedisClient(MainConfig.REDIS_HOST, MainConfig.REDIS_PORT)
     rediska.redis_connect()
     while True:
-        data = rediska.redis_add_new_tg_update()
-        print(data)
-        for message in data:
-            print(message)
-            # msg_from = message.get('message').get('from').get('first_name')
-            # msg_text = message.get('message').get('text')
-            # logging.log(logging.INFO, f'New message from: {msg_from} - {msg_text}')
+        rediska.redis_add_new_tg_update()
         await asyncio.sleep(0.1)
 
 loop = asyncio.get_event_loop()
