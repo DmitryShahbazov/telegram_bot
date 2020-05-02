@@ -19,7 +19,8 @@ def read_vpn_status_log():
 async def rediska_check():
     rediska = RedisClient(MainConfig.REDIS_HOST, MainConfig.REDIS_PORT)
     rediska.redis_connect()
-    await rediska.redis_add_new_tg_update()
+    rediska.redis_add_new_tg_update()
+    await asyncio.sleep(0.1)
 
 loop = asyncio.get_event_loop()
 asyncio.ensure_future(rediska_check())
