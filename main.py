@@ -30,7 +30,5 @@ async def printing():
     print(result)
 
 loop = asyncio.get_event_loop()
-asyncio.ensure_future(printing())
-loop.run_forever()
-
+loop.run_until_complete(printing())
 
