@@ -3,8 +3,8 @@ import redis
 import logging
 from config import MainConfig
 from telegram_api.telegram_api import TelegramApi
+from receiver.receiver import Receiver
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
 
 
 class RedisClient:
@@ -18,10 +18,11 @@ class RedisClient:
 
     def redis_add_new_tg_update(self):
         tg = TelegramApi(MainConfig.TOKEN)
-        update_data = tg.api_get_updates()
+        update_data = tg.get_updates()
         for data in update_data['result']:
             if_update_exists = self.redis_client.get(data['update_id'])
             if not if_update_exists:
+                Receiver.if_command_check(data.get('chat').get('id'), data.get('message').get('text'))
                 msg_from = data.get('message').get('from').get('first_name')
                 msg_text = data.get('message').get('text')
                 logging.log(logging.INFO, f'New message from: {msg_from} - {msg_text}')

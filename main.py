@@ -9,13 +9,6 @@ from config import MainConfig
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
-def read_vpn_status_log():
-    with open('/etc/openvpn/server/openvpn-status.log', 'r') as log_file:
-        log_text = log_file.read()
-        log_file.close()
-    return log_text
-
-
 async def redis_add_update_loop():
     rediska = RedisClient(MainConfig.REDIS_HOST, MainConfig.REDIS_PORT)
     rediska.redis_connect()
