@@ -4,11 +4,10 @@ from telegram_api.telegram_api import TelegramApi
 
 
 class RedisClient:
-    def __init__(self, host: str, port: int, ttl: int):
+    def __init__(self, host: str, port: int):
         self.redis_client = None
         self.host = host
         self.port = port
-        self.ttl = ttl
 
     def redis_connect(self):
         self.redis_client = redis.Redis(self.host, self.port)
