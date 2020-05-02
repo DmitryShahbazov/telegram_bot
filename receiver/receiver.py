@@ -22,7 +22,7 @@ class Receiver:
             self.what_command_check(message, chat_id)
 
     def what_command_check(self, command, chat_id):
-        if command == ReceiverCommands.help_command:
+        if command == ReceiverCommands.help_command.value:
             self.api.send_message(chat_id, 'Here would be help soon..')
-        elif command == ReceiverCommands.vpn_status_log:
+        elif command == ReceiverCommands.vpn_status_log.value:
             self.api.send_message(chat_id, vpn_commands.read_vpn_status_log())
