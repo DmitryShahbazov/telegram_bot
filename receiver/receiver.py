@@ -16,7 +16,7 @@ class Receiver:
     def if_command_check(self, chat_id, message):
         if not message[0] == '/':
             self.api.send_message(chat_id, 'Command should start with /')
-        elif message not in ReceiverCommands:
+        elif message not in [item.value for item in ReceiverCommands]:
             self.api.send_message(chat_id, 'Command not found. Check /help')
         else:
             self.what_command_check(message, chat_id)
