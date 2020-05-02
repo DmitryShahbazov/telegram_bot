@@ -17,6 +17,7 @@ class RedisClient:
         tg = TelegramApi(MainConfig.TOKEN)
         update_data = tg.api_get_updates()
         for data in update_data['result']:
-            self.redis_client.set(data['update_id'], str(data), nx=True)
-            return self.redis_client.lindex(index=-1)
+            x = self.redis_client.set(data['update_id'], str(data), nx=True)
+            print(x)
+            return x
 
