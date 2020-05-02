@@ -1,3 +1,4 @@
+import json
 import redis
 from config import MainConfig
 from telegram_api.telegram_api import TelegramApi
@@ -17,5 +18,5 @@ class RedisClient:
         update_data = tg.api_get_updates()
         for data in update_data['result']:
             self.redis_client.set(data['update_id'], str(data), nx=True)
-        return data
+            return self.redis_client.lindex(index=-1)
 
