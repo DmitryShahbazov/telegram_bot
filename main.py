@@ -20,15 +20,19 @@ async def rediska_check():
     rediska = RedisClient(MainConfig.REDIS_HOST, MainConfig.REDIS_PORT)
     rediska.redis_connect()
     while True:
-        rediska.redis_add_new_tg_update()
+        x = rediska.redis_add_new_tg_update()
+        print(x)
         await asyncio.sleep(0.1)
 
 
 async def printing():
-    print('salam')
-    await rediska_check()
+    while True:
+        print('-----------------salam--------------------')
+        await asyncio.sleep(0.5)
 
 
 loop = asyncio.get_event_loop()
-loop.run_until_complete(printing())
+asyncio.ensure_future(rediska_check())
+asyncio.ensure_future(printing())
+loop.run_until_complete()
 
