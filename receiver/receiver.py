@@ -1,12 +1,13 @@
 from telegram_api.telegram_api import TelegramApi
 from config import MainConfig
-from comands import vpn_commands
+from comands import server_commands
 from enum import Enum
 
 
 class ReceiverCommands(Enum):
     vpn_status_log = '/vpn_status_log'
     help_command = '/help'
+    server_debug = '/server_debug'
 
 
 class Receiver:
@@ -25,4 +26,7 @@ class Receiver:
         if command == ReceiverCommands.help_command.value:
             self.api.send_message(chat_id, 'Here would be help soon..')
         elif command == ReceiverCommands.vpn_status_log.value:
-            self.api.send_message(chat_id, vpn_commands.read_vpn_status_log())
+            self.api.send_message(chat_id, server_commands.read_vpn_status_log())
+        elif command == ReceiverCommands.server_debug.value:
+            MainConfig.SERVER_DEBUG = not MainConfig.SERVER_DEBUG
+            self.api.send_message(chat_id, f'Server debug mode is {MainConfig.SERVER_DEBUG}')
