@@ -1,3 +1,5 @@
+from typing import Optional
+
 from telegram_api.telegram_api import TelegramApi
 from config import MainConfig
 from comands import server_commands
@@ -8,11 +10,18 @@ class ReceiverCommands(Enum):
     vpn_status_log = '/vpn_status_log'
     help_command = '/help'
     server_debug = '/server_debug'
+    save_file = '/save_file'
 
 
 class Receiver:
     def __init__(self):
         self.api = TelegramApi(MainConfig.TOKEN)
+
+    @staticmethod
+    def check_is_file(data: dict) -> Optional[str]:
+        for key, v in data.items():
+            if isinstance(v, dict) and v.get('file_id'):
+                return v.get('file_id')
 
     def if_command_check(self, chat_id: int, message: str):
         """
@@ -36,7 +45,7 @@ class Receiver:
         :param chat_id: Откуда пришло сообщение
         """
         if command == ReceiverCommands.help_command.value:
-            self.api.send_message(chat_id, 'Here would be help soon..')
+            self.api.send_message(chat_id, f'List of current commands:{list(map(lambda c: c.value, ReceiverCommands))}')
         elif command == ReceiverCommands.vpn_status_log.value:
             self.api.send_message(chat_id, server_commands.read_vpn_status_log())
         elif command == ReceiverCommands.server_debug.value:

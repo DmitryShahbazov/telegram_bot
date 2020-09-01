@@ -27,8 +27,16 @@ class RedisClient:
             if_update_exists = self.redis_client.get(data['update_id'])
             if not if_update_exists:
                 receiver = Receiver()
-                receiver.if_command_check(data.get('message').get('chat').get('id'), data.get('message').get('text'))
                 msg_from = data.get('message').get('from').get('first_name')
                 msg_text = data.get('message').get('text')
+                file_id = receiver.check_is_file(data)
+                if not file_id:
+                    receiver.if_command_check(data.get('message').get('chat').get('id'),
+                                              data.get('message').get('text'))
+                else:
+                    logging.log(logging.INFO, f'Got file: {file_id}')
+                    result = tg.save_file(file_id)
+                    # todo добавить таки сохранение
+                    logging.log(logging.INFO, f'FILE TO SAVE: {result}')
                 logging.log(logging.INFO, f'New message from: {msg_from} - {msg_text}')
             self.redis_client.set(data['update_id'], str(data), nx=True)
