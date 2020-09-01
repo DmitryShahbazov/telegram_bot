@@ -20,6 +20,7 @@ class Receiver:
     @staticmethod
     def check_is_file(data: dict) -> Optional[str]:
         for key, v in data.items():
+            print(v)
             if isinstance(v, dict) and v.get('file_id'):
                 return v.get('file_id')
 
