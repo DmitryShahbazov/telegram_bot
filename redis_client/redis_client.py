@@ -29,9 +29,7 @@ class RedisClient:
                 receiver = Receiver()
                 msg_from = data.get('message').get('from').get('first_name')
                 msg_text = data.get('message').get('text')
-                print(f'DATA FROM API(REDIS): {data}')
                 file_id = receiver.check_is_file(data)
-                print(file_id)
                 if not file_id:
                     receiver.if_command_check(data.get('message').get('chat').get('id'),
                                               data.get('message').get('text'))
