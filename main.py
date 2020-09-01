@@ -1,12 +1,10 @@
 import logging
-import redis
-import requests
-import signal
-import sys
 import asyncio
 from redis_client.redis_client import RedisClient
 from config import MainConfig
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+logging.log(logging.INFO, 'Welcome on board!')
 
 
 async def redis_add_update_loop():

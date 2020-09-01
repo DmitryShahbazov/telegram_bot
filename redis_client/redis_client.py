@@ -1,4 +1,3 @@
-import json
 import redis
 import logging
 from config import MainConfig
