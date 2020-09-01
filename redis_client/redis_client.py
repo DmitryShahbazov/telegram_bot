@@ -18,6 +18,11 @@ class RedisClient:
     def redis_add_new_tg_update(self):
         tg = TelegramApi(MainConfig.TOKEN)
         update_data = tg.get_updates()
+
+        if not update_data['result']:
+            logging.log(logging.CRITICAL, 'Redis update data failed..')
+            return
+
         for data in update_data['result']:
             if_update_exists = self.redis_client.get(data['update_id'])
             if not if_update_exists:

@@ -2,7 +2,7 @@ import requests
 
 
 class TelegramApi:
-    def __init__(self, token):
+    def __init__(self, token: str):
         self.token = token
 
     def get_me(self) -> dict:

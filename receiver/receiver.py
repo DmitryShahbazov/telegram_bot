@@ -14,7 +14,14 @@ class Receiver:
     def __init__(self):
         self.api = TelegramApi(MainConfig.TOKEN)
 
-    def if_command_check(self, chat_id, message):
+    def if_command_check(self, chat_id: int, message: str):
+        """
+        Проверяем прислали ли нам команду
+        1. Команда должна начинаться с /
+        2. Команда должна быть добавлена в enum ReceiverCommands
+        :param chat_id: Откуда пришло сообщение
+        :param message: Содержание сообщения
+        """
         if not message[0] == '/':
             self.api.send_message(chat_id, 'Command should start with /')
         elif message not in [item.value for item in ReceiverCommands]:
@@ -22,7 +29,12 @@ class Receiver:
         else:
             self.what_command_check(message, chat_id)
 
-    def what_command_check(self, command, chat_id):
+    def what_command_check(self, command: str, chat_id: int):
+        """
+        Проверяем что за команду нам прислали
+        :param command: Сама команда
+        :param chat_id: Откуда пришло сообщение
+        """
         if command == ReceiverCommands.help_command.value:
             self.api.send_message(chat_id, 'Here would be help soon..')
         elif command == ReceiverCommands.vpn_status_log.value:
