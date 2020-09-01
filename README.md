@@ -1,7 +1,7 @@
-TO INSTALL:
-yum install python3
-yum install redis
-pip3 install redis
-pip3 install requests
-TO INSERT:
-config.py -> MainConfig -> TOKEN = 'YOUR_TOKEN'
+<b>TO INSTALL: </b> </br>
+yum install python3 </br>
+yum install redis </br>
+pip3 install redis </br>
+pip3 install requests </br>
+<b>TO INSERT: </b></br>
+config.py -> MainConfig -> TOKEN = 'YOUR_TOKEN' </br>
