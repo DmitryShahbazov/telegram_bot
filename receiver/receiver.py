@@ -19,11 +19,12 @@ class Receiver:
 
     @staticmethod
     def check_is_file(data: dict) -> Optional[str]:
-        print(data)
+        print(f"DATA: {data}")
         for key, v in data.items():
-            print(v)
+            print(f"VALUE: {v}")
             if isinstance(v, dict) and v.get('file_id'):
                 file_id = v.get('file_id')
+                print(f'FILE ID: {file_id}')
                 return file_id
 
     def if_command_check(self, chat_id: int, message: str):
