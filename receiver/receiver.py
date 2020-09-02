@@ -53,6 +53,12 @@ class Receiver:
         :param command: Сама команда
         :param chat_id: Откуда пришло сообщение
         """
+        # Проверяем не пришла ли команда с текстом
+        splited_command = command.split(' ')
+        if len(splited_command) > 1:
+            command = splited_command[0]
+            text = splited_command[1]
+
         if command == ReceiverCommands.help_command.value:
             self.api.send_message(chat_id, f'List of current commands:{list(map(lambda c: c.value, ReceiverCommands))}')
         elif command == ReceiverCommands.vpn_status_log.value:
@@ -61,4 +67,4 @@ class Receiver:
             MainConfig.SERVER_DEBUG = not MainConfig.SERVER_DEBUG
             self.api.send_message(chat_id, f'Server debug mode is {MainConfig.SERVER_DEBUG}')
         elif command == ReceiverCommands.create_vpn_profile.value:
-            server_commands.create_vpn_profile('xxx')
+            server_commands.create_vpn_profile(text)
