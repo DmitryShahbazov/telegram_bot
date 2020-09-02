@@ -31,6 +31,15 @@ class Receiver:
                     elif isinstance(val, list):
                         return val[-1].get('file_id')
 
+    @staticmethod
+    def split_message(message: str):
+        # Проверяем не пришла ли команда с текстом
+        splited_command = message.split(' ')
+        if len(splited_command) > 1:
+            return splited_command[0], splited_command[1]
+        else:
+            return message
+
     def if_command_check(self, chat_id: int, message: str):
         """
         Проверяем прислали ли нам команду
@@ -40,6 +49,7 @@ class Receiver:
         :param message: Содержание сообщения
         """
         if message:
+            message, text = self.split_message(message)
             if not message[0] == '/':
                 self.api.send_message(chat_id, 'Command should start with /')
             elif message not in [item.value for item in ReceiverCommands]:
@@ -53,11 +63,7 @@ class Receiver:
         :param command: Сама команда
         :param chat_id: Откуда пришло сообщение
         """
-        # Проверяем не пришла ли команда с текстом
-        splited_command = command.split(' ')
-        if len(splited_command) > 1:
-            command = splited_command[0]
-            text = splited_command[1]
+        message, text = self.split_message(command)
 
         if command == ReceiverCommands.help_command.value:
             self.api.send_message(chat_id, f'List of current commands:{list(map(lambda c: c.value, ReceiverCommands))}')
