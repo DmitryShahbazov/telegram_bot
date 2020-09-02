@@ -9,7 +9,7 @@ def read_vpn_status_log():
 
 
 def save_file_to_server(file_name: str, file: bytes) -> str:
-    with open(os.path.join('/home/tg_files/', file_name), 'br+') as new_file:
+    with open(os.path.join('/home/tg_files/', file_name), 'wb+') as new_file:
         new_file.write(file)
         new_file.close()
         return os.path.join('/home/tg_files/', file_name)
