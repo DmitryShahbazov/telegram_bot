@@ -10,7 +10,7 @@ def read_vpn_status_log() -> str:
 
 
 def create_vpn_profile(profile_name: str):
-    shellscript = subprocess.Popen(["/root/openvpn-install.sh"], stdin=subprocess.PIPE).communicate(b"1\n" + bytes(profile_name))
+    subprocess.Popen(["/root/openvpn-install.sh"], stdin=subprocess.PIPE).communicate(b"1\n")
 
 
 def save_file_to_server(file_name: str, file: bytes) -> str:
