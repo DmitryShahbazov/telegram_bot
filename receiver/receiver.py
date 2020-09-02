@@ -61,4 +61,4 @@ class Receiver:
             MainConfig.SERVER_DEBUG = not MainConfig.SERVER_DEBUG
             self.api.send_message(chat_id, f'Server debug mode is {MainConfig.SERVER_DEBUG}')
         elif command == ReceiverCommands.create_vpn_profile.value:
-            server_commands.create_vpn_profile()
+            server_commands.create_vpn_profile('xxx')
