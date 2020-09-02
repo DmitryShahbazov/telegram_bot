@@ -10,9 +10,9 @@ logging.log(logging.INFO, 'Welcome on board!')
 async def redis_add_update_loop():
     rediska = RedisClient(MainConfig.REDIS_HOST, MainConfig.REDIS_PORT)
     rediska.redis_connect()
-    while True:
-        rediska.redis_add_new_tg_update()
-        await asyncio.sleep(0.1)
+    # while True:
+    rediska.redis_add_new_tg_update()
+        # await asyncio.sleep(0.1)
 
 loop = asyncio.get_event_loop()
 asyncio.ensure_future(redis_add_update_loop())
