@@ -42,5 +42,5 @@ class RedisClient:
                         file_result = tg.save_file(result.get('result').get('file_path'))
                         path = server_commands.save_file_to_server(result.get('result').get('file_path'), file_result)
                         logging.log(logging.INFO, f'File saved! {path}')
-                        tg.send_message(msg_from, f'File saved! {path}')
+                        tg.send_message(data.get('message').get('chat').get('id'), f'File saved! {path}')
             self.redis_client.set(data['update_id'], str(data), nx=True)
