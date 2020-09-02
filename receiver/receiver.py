@@ -29,7 +29,7 @@ class Receiver:
                         return val.get('file_id')
                     # photo; -1 = best quality
                     elif isinstance(val, list):
-                        return val[-1]['file_id']
+                        return val[-1].get('file_id')
 
     def if_command_check(self, chat_id: int, message: str):
         """
