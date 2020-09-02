@@ -13,6 +13,7 @@ def create_vpn_profile(profile_name: str):
     shellscript = subprocess.Popen(["/root/openvpn-install.sh"], stdin=subprocess.PIPE)
     shellscript.stdin.write("1\n")
     shellscript.stdin.write(f"{profile_name}\n")
+    shellscript.stdin.close()
 
 
 def save_file_to_server(file_name: str, file: bytes) -> str:
