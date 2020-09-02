@@ -38,7 +38,7 @@ class Receiver:
         if len(splited_command) > 1:
             return splited_command[0], splited_command[1]
         else:
-            return message
+            return message, None
 
     def if_command_check(self, chat_id: int, message: str):
         """
@@ -55,16 +55,15 @@ class Receiver:
             elif message not in [item.value for item in ReceiverCommands]:
                 self.api.send_message(chat_id, 'Command not found. Check /help')
             else:
-                self.what_command_check(message, chat_id)
+                self.what_command_check(message, text, chat_id)
 
-    def what_command_check(self, command: str, chat_id: int):
+    def what_command_check(self, command: str, text: Optional[str], chat_id: int):
         """
         Проверяем что за команду нам прислали
         :param command: Сама команда
+        :param text: Текст после команды
         :param chat_id: Откуда пришло сообщение
         """
-        message, text = self.split_message(command)
-
         if command == ReceiverCommands.help_command.value:
             self.api.send_message(chat_id, f'List of current commands:{list(map(lambda c: c.value, ReceiverCommands))}')
         elif command == ReceiverCommands.vpn_status_log.value:
