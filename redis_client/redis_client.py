@@ -3,6 +3,7 @@ import logging
 from config import MainConfig
 from telegram_api.telegram_api import TelegramApi
 from receiver.receiver import Receiver
+from comands import server_commands
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
@@ -33,12 +34,12 @@ class RedisClient:
                 if not file_id:
                     receiver.if_command_check(data.get('message').get('chat').get('id'),
                                               data.get('message').get('text'))
+                    logging.log(logging.INFO, f'New message from: {msg_from} - {msg_text}')
                 else:
-                    logging.log(logging.INFO, f'Got file: {file_id}')
+                    logging.log(logging.INFO, f'Got file: {file_id}. From: {msg_from}')
                     result = tg.get_file_path(file_id)
                     if result['ok']:
                         file_result = tg.save_file(result.get('result').get('file_path'))
-                        # todo save file_result
-                    logging.log(logging.INFO, f'FILE TO SAVE: {result}')
-                logging.log(logging.INFO, f'New message from: {msg_from} - {msg_text}')
+                        path = server_commands.save_file_to_server(result.get('result').get('file_path'), file_result)
+                        logging.log(logging.INFO, f'File saved! {path}')
             self.redis_client.set(data['update_id'], str(data), nx=True)
