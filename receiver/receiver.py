@@ -29,7 +29,6 @@ class Receiver:
                     elif isinstance(val, list):
                         return val[-1]['file_id']
 
-
     def if_command_check(self, chat_id: int, message: str):
         """
         Проверяем прислали ли нам команду
