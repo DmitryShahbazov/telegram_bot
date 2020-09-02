@@ -26,7 +26,7 @@ class Receiver:
                     if isinstance(val, dict) and val.get('file_id'):
                         return val.get('file_id')
                     # photo; -1 = best quality
-                    elif isinstance(v, list):
+                    elif isinstance(val, list):
                         return val[-1]['file_id']
 
 
