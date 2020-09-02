@@ -26,7 +26,6 @@ class RedisClient:
         for data in update_data['result']:
             if_update_exists = self.redis_client.get(data['update_id'])
             if not if_update_exists:
-                print(data)
                 receiver = Receiver()
                 msg_from = data.get('message').get('from').get('first_name')
                 msg_text = data.get('message').get('text')
