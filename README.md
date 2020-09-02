@@ -8,3 +8,4 @@ config.py -> MainConfig -> TOKEN = 'YOUR_TOKEN' </br>
 <b>TO RUN: </b> </br>
 sudo systemctl start redis </br>
 sudo systemctl enable redis </br>
+python3 main.py </br>
