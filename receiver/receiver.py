@@ -20,10 +20,15 @@ class Receiver:
     @staticmethod
     def check_is_file(data: dict) -> Optional[str]:
         for key, v in data.items():
+            # audio, video
             if isinstance(v, dict):
                 for k, val in v.items():
                     if isinstance(val, dict) and val.get('file_id'):
                         return val.get('file_id')
+            # photo; -1 = best quality
+            elif isinstance(v, list):
+                return v[-1]['file_id']
+
 
     def if_command_check(self, chat_id: int, message: str):
         """
