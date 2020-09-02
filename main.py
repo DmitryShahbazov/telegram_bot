@@ -12,7 +12,7 @@ async def redis_add_update_loop():
     rediska.redis_connect()
     while True:
         rediska.redis_add_new_tg_update()
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(1.0)
 
 loop = asyncio.get_event_loop()
 asyncio.ensure_future(redis_add_update_loop())
