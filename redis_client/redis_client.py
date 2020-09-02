@@ -37,6 +37,7 @@ class RedisClient:
                     logging.log(logging.INFO, f'Got file: {file_id}')
                     result = tg.get_file_path(file_id)
                     if result['ok']:
+                        print(result)
                         file_result = tg.save_file(result.get('result').get('file_path'))
                         print(file_result)
                     logging.log(logging.INFO, f'FILE TO SAVE: {result}')
