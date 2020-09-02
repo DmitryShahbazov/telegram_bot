@@ -26,6 +26,7 @@ class RedisClient:
         for data in update_data['result']:
             if_update_exists = self.redis_client.get(data['update_id'])
             if not if_update_exists:
+                print(data)
                 receiver = Receiver()
                 msg_from = data.get('message').get('from').get('first_name')
                 msg_text = data.get('message').get('text')
@@ -37,9 +38,8 @@ class RedisClient:
                     logging.log(logging.INFO, f'Got file: {file_id}')
                     result = tg.get_file_path(file_id)
                     if result['ok']:
-                        print(result.get('result').get('file_path'))
                         file_result = tg.save_file(result.get('result').get('file_path'))
-                        print(file_result)
+                        # todo save file_result
                     logging.log(logging.INFO, f'FILE TO SAVE: {result}')
                 logging.log(logging.INFO, f'New message from: {msg_from} - {msg_text}')
             self.redis_client.set(data['update_id'], str(data), nx=True)
