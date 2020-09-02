@@ -8,7 +8,7 @@ from enum import Enum
 
 class ReceiverCommands(Enum):
     vpn_status_log = '/vpn_status_log'
-    create_vpn_profile = 'create_vpn_profile'
+    create_vpn_profile = '/create_vpn_profile'
     help_command = '/help'
     server_debug = '/server_debug'
     save_file = '/save_file'
