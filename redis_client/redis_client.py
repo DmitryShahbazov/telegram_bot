@@ -35,8 +35,10 @@ class RedisClient:
                                               data.get('message').get('text'))
                 else:
                     logging.log(logging.INFO, f'Got file: {file_id}')
-                    result = tg.save_file(file_id)
-                    # todo добавить таки сохранение
+                    result = tg.get_file_path(file_id)
+                    if result['ok']:
+                        file_result = tg.save_file(result.get('result').get('file_path'))
+                        print(file_result)
                     logging.log(logging.INFO, f'FILE TO SAVE: {result}')
                 logging.log(logging.INFO, f'New message from: {msg_from} - {msg_text}')
             self.redis_client.set(data['update_id'], str(data), nx=True)

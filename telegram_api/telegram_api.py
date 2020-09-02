@@ -17,8 +17,12 @@ class TelegramApi:
         response = requests.get(f'https://api.telegram.org/bot{self.token}/sendMessage?chat_id={chat_id}&text={text}')
         return response.json()
 
-    def save_file(self, file_id) -> dict:
+    def get_file_path(self, file_id) -> dict:
         response = requests.get(f'https://api.telegram.org/bot{self.token}/getFile?file_id={file_id}')
+        return response.json()
+
+    def save_file(self, file_path) -> dict:
+        response = requests.get(f'https://api.telegram.org/file/bot{self.token}/{file_path}')
         return response.json()
 
 
