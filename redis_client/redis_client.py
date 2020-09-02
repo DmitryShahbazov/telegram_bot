@@ -2,8 +2,7 @@ import redis
 import logging
 from config import MainConfig
 from telegram_api.telegram_api import TelegramApi
-from receiver.receiver import Receiver
-from comands import server_commands
+from receiver.processor import process_data
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
@@ -26,21 +25,8 @@ class RedisClient:
 
         for data in update_data['result']:
             if_update_exists = self.redis_client.get(data['update_id'])
+
             if not if_update_exists:
-                receiver = Receiver()
-                msg_from = data.get('message').get('from').get('first_name')
-                msg_text = data.get('message').get('text')
-                file_id = receiver.check_is_file(data)
-                if not file_id:
-                    receiver.if_command_check(data.get('message').get('chat').get('id'),
-                                              data.get('message').get('text'))
-                    logging.log(logging.INFO, f'New message from: {msg_from} - {msg_text}')
-                else:
-                    logging.log(logging.INFO, f'Got file: {file_id}. From: {msg_from}')
-                    result = tg.get_file_path(file_id)
-                    if result['ok']:
-                        file_result = tg.save_file(result.get('result').get('file_path'))
-                        path = server_commands.save_file_to_server(result.get('result').get('file_path'), file_result)
-                        logging.log(logging.INFO, f'File saved! {path}')
-                        tg.send_message(data.get('message').get('chat').get('id'), f'File saved! {path}')
+                process_data(data, tg)
+
             self.redis_client.set(data['update_id'], str(data), nx=True)

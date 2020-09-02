@@ -1,7 +1,7 @@
 import os
 
 
-def read_vpn_status_log():
+def read_vpn_status_log() -> str:
     with open('/etc/openvpn/server/openvpn-status.log', 'r') as log_file:
         log_text = log_file.read()
         log_file.close()
