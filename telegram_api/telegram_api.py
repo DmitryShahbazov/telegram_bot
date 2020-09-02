@@ -23,7 +23,7 @@ class TelegramApi:
 
     def save_file(self, file_path) -> dict:
         response = requests.get(f'https://api.telegram.org/file/bot{self.token}/{file_path}')
-        return response.json()
+        return response
 
 
 
