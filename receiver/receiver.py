@@ -8,6 +8,7 @@ from enum import Enum
 
 class ReceiverCommands(Enum):
     vpn_status_log = '/vpn_status_log'
+    create_vpn_profile = 'create_vpn_profile'
     help_command = '/help'
     server_debug = '/server_debug'
     save_file = '/save_file'
@@ -19,6 +20,7 @@ class Receiver:
 
     @staticmethod
     def check_is_file(data: dict) -> Optional[str]:
+        print(data)
         for key, v in data.items():
             if isinstance(v, dict):
                 for k, val in v.items():
@@ -58,3 +60,5 @@ class Receiver:
         elif command == ReceiverCommands.server_debug.value:
             MainConfig.SERVER_DEBUG = not MainConfig.SERVER_DEBUG
             self.api.send_message(chat_id, f'Server debug mode is {MainConfig.SERVER_DEBUG}')
+        elif command == ReceiverCommands.create_vpn_profile.value:
+            server_commands.create_vpn_profile()
